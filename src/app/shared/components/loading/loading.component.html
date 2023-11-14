@@ -1,0 +1,23 @@
+<div
+  class="position-absolute top-0 start-0 w-100 bef bef-h-100vh d-flex flex-column justify-content-center align-items-center"
+>
+  @if (!!title) {
+  <h5 [ngClass]="titleClasses">{{ title }}</h5>
+  }
+  <mat-spinner
+    [ngClass]="
+      'bef ' +
+      spinnerClasses +
+      (!!customSpinnerColor ? ' bef-strokeSEL__svg-' + customSpinnerColor : '')
+    "
+    [color]="spinnerColor"
+    [mode]="spinnerMode"
+    [diameter]="spinnerDiameter"
+    [strokeWidth]="spinnerStrokeWidth"
+    [value]="spinnerValue"
+    defaultColor="'primary'"
+  ></mat-spinner>
+  @if (!!message) {
+  <h5 [ngClass]="messageClasses">{{ message }}</h5>
+  }
+</div>
