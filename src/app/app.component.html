@@ -1,38 +1,80 @@
-@defer ( on idle ) {
-<app-header></app-header>
-} @loading {
-<app-loading
-  [spinnerColor]="'primary'"
-  [customSpinnerColor]="'lavender'"
-  [spinnerDiameter]="100"
-  [spinnerStrokeWidth]="10"
-></app-loading>
-} @error {
-<app-error></app-error>
-} @defer ( on idle ) {
-<app-main></app-main>
-} @loading {
-<app-loading
-  [spinnerColor]="'primary'"
-  [customSpinnerColor]="'lavender'"
-  [spinnerDiameter]="150"
-  [spinnerStrokeWidth]="5"
-></app-loading>
-} @error {
-<app-error></app-error>
-} @defer ( on idle ) {
-<app-footer></app-footer>
-} @loading {
-<app-loading
-  [spinnerColor]="'primary'"
-  [customSpinnerColor]="'lavender'"
-  [spinnerDiameter]="50"
-  [spinnerStrokeWidth]="20"
-></app-loading>
-} @error {
-<app-error></app-error>
-}
-<app-loading
+<mat-sidenav-container class="postion-absolute top-0 bottom-0 start-0 end-0">
+  <mat-sidenav
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!!openSideNav()"
+    (closedStart)="!!openSideNav() ? changeOpenSideNav() : null"
+    class="bef bg-dark text-light bef-w-280px"
+  >
+    <h2 class="text-center mt-3">Menú</h2>
+    <mat-nav-list>
+      @for (link of navigationLinks; track link;) {
+      <a
+        mat-list-item
+        href="/{{ link.link }}"
+        [activated]="link.link === 'home'"
+        [routerLink]="[link.link]"
+        [queryParams]="link.queryParams"
+        [fragment]="link.fragment"
+        [disabled]="link.link === 'home'"
+        class="bef bef-textSELNotSD_mdcMINlistMINitemMINMINactivatedED___mdcMINlistMINitemUNDUNDprimaryMINtext-light bef-textSELNotSDNotSD_mdcMINlistMINitemMINMINactivatedEDED___mdcMINlistMINitemUNDUNDprimaryMINtext-secondary"
+        >{{ link.name }}</a
+      ><mat-divider></mat-divider>
+      }
+    </mat-nav-list>
+    <!-- <form class="d-flex mt-3" role="search">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-success" type="submit">Search</button>
+    </form> -->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    @defer ( on idle ) {
+    <app-header
+      class="position-fixed top-0 end-0 bef {{
+        !!openSideNav() ? 'bef-w-calcSD100vw__MIN__280pxED' : 'w-100'
+      }} bef-z-1030 bef-h-56px bef-transition-all_300ms"
+      (toggleSideNav)="changeOpenSideNav()"
+      (cssCreate)="cssCreate()"
+    />
+    } @loading {
+    <app-loading
+      [spinnerColor]="'primary'"
+      [customSpinnerColor]="'lavender'"
+      [spinnerDiameter]="100"
+      [spinnerStrokeWidth]="10"
+    ></app-loading>
+    } @error {
+    <app-error />
+    } @defer ( on idle ) {
+    <app-main />
+    } @loading {
+    <app-loading
+      [spinnerColor]="'primary'"
+      [customSpinnerColor]="'lavender'"
+      [spinnerDiameter]="150"
+      [spinnerStrokeWidth]="5"
+    ></app-loading>
+    } @error {
+    <app-error />
+    } @defer ( on idle ) { <app-footer /> } @loading {
+    <app-loading
+      [spinnerColor]="'primary'"
+      [customSpinnerColor]="'lavender'"
+      [spinnerDiameter]="50"
+      [spinnerStrokeWidth]="20"
+    ></app-loading>
+    } @error {
+    <app-error />
+    }
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <app-loading
   [title]="' '"
   [titleClasses]="'h1 text-center my-3'"
   [message]="' '"
@@ -74,4 +116,4 @@
   [spinnerDiameter]="100"
   [spinnerStrokeWidth]="10"
   [spinnerClasses]="'d-block mx-auto my-3'"
-></app-loading>
+></app-loading> -->
